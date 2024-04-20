@@ -17,10 +17,29 @@
     <h1>Starshop: your monopoly-busting option for starship parts! </h1>
 
     <div>
-        Browse through {{ numberOfStarships }} starships
+        Browse through {{ ships|length }} starships
 
-        {% if numberOfStarships > 5 %}
+        {% if ships|length > 2 %}
             <p>That is a lot of ships</p>
         {% endif %}
+    </div>
+
+    <div>
+        <h3>Your starship</h3>
+        <table>
+            <tr>
+                <th>Name</th><td>{{ myShip.name }}</td>
+            </tr>
+            <tr>
+                <th>Class</th><td>{{ myShip.class }}</td>
+            </tr>
+            <tr>
+                <th>Captain</th><td>{{ myShip.captain }}</td>
+            </tr>
+            <tr>
+                <th>Status</th><td>{{ myShip.status }}</td>
+            </tr>
+
+        </table>
     </div>
 {% endblock %}
