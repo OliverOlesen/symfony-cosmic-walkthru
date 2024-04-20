@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{#
+    {{ numberOfSomething }} This is used for printing whatever is in the double curly brackets as text. element inside is a twig element.
+
+    {%  %} This is used for *doing something*, meaning it doesn't print anything, and is used for stuff like if and loop statements (if, for, foreach, while etc) or setting a variable
+    What can be used inside of the procentBrackets can be found here -> {{ https://twig.symfony.com/doc/3.x/ }}
+    example of an if would be ->
+    {% if numberOfSomething > 10 %}
+        <p>some html to do</p>
+    {% endif %}
+
+#}
+{# {{ parent() }} is used in this case, so it adds onto the defaulty block title, instead of overriding it #}
+{% block title %} {{ parent() }}Homepage{% endblock %}
+
+{% block body %}
+    <h1>Starshop: your monopoly-busting option for starship parts! </h1>
+
+    <div>
+        Browse through {{ numberOfStarships }} starships
+
+        {% if numberOfStarships > 5 %}
+            <p>That is a lot of ships</p>
+        {% endif %}
+    </div>
+{% endblock %}
