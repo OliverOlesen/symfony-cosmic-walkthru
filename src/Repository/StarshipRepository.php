@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Model\Starship;
+use App\Model\StarshipStatusEnum;
 use Psr\Log\LoggerInterface;
 
 readonly class StarshipRepository
@@ -21,21 +22,21 @@ readonly class StarshipRepository
                 'Uss LeafyCruiser',
                 'Garden',
                 'Jean-Paul',
-                'Overthrown'
+                StarshipStatusEnum::IN_PROGRESS
             ),
             new Starship(
                 2,
                 'Dk BarnTra',
                 'Behemoth',
                 'Bob-Karl',
-                'Ok'
+                StarshipStatusEnum::COMPLETED
             ),
             new Starship(
                 3,
                 'De DerBerliner',
                 'Average',
                 'Hilbert-Kaiser',
-                'Error'
+                StarshipStatusEnum::WAITING
             ),
         ];
     }

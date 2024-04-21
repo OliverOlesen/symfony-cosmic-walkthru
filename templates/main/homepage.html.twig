@@ -1,54 +1,66 @@
 {% extends 'base.html.twig' %}
-{#
-    {{ numberOfSomething }} This is used for printing whatever is in the double curly brackets as text. element inside is a twig element.
 
-    {%  %} This is used for *doing something*, meaning it doesn't print anything, and is used for stuff like if and loop statements (if, for, foreach, while etc) or setting a variable
-    What can be used inside of the procentBrackets can be found here -> {{ https://twig.symfony.com/doc/3.x/ }}
-    example of an if would be ->
-    {% if numberOfSomething > 10 %}
-        <p>some html to do</p>
-    {% endif %}
+{#
+{{ numberOfSomething }} This is used for printing whatever is in the double curly brackets as text. element inside is a twig element.
+
+{%  %} This is used for *doing something*, meaning it doesn't print anything, and is used for stuff like if and loop statements (if, for, foreach, while etc) or setting a variable
+What can be used inside of the procentBrackets can be found here -> {{ https://twig.symfony.com/doc/3.x/ }}
+example of an if would be ->
+{% if numberOfSomething > 10 %}
+    <p>some html to do</p>
+{% endif %}
 
 #}
+
 {# {{ parent() }} is used in this case, so it adds onto the defaulty block title, instead of overriding it #}
-{% block title %} {{ parent() }}Homepage{% endblock %}
+{% block title %}{{ parent() }}Starshop: Beam up some parts!{% endblock %}
 
 {% block body %}
-    <h1>Starshop: your monopoly-busting option for starship parts! </h1>
+    <main class="flex flex-col lg:flex-row">
+        {{ include('main/_shipStatusAside.html.twig') }}
 
-    <div>
-        Browse through {{ ships|length }} starships
+        <div class="px-12 pt-10 w-full">
+            <h1 class="text-4xl font-semibold mb-8">
+                Ship Repair Queue
+            </h1>
 
-        {% if ships|length > 2 %}
-            <p>That is a lot of ships</p>
-        {% endif %}
-    </div>
+            <div class="space-y-5">
+                {% for ship in ships %}
+                <div class="bg-[#16202A] rounded-2xl pl-5 py-5 pr-11 flex flex-col min-[1174px]:flex-row min-[1174px]:justify-between">
+                    <div class="flex justify-center min-[1174px]:justify-start">
+                        <img class="h-[83px] w-[84px]" src="{{ asset(ship.statusImageFilename) }}" alt="{{ ship.statusString }}">
+                        <div class="ml-5">
+                            <div class="rounded-2xl py-1 px-3 flex justify-center w-32 items-center bg-amber-400/10">
+                                <div class="rounded-full h-2 w-2 bg-amber-400 blur-[1px] mr-2"></div>
+                                <p class="uppercase text-xs text-nowrap">{{ ship.statusString }}</p>
+                            </div>
+                            <h4 class="text-[22px] pt-1 font-semibold">
+                                <a
+                                    class="hover:text-slate-200"
+                                    href="{{ path('app_starship_show', {id: ship.id}) }}"
+                                >{{ ship.name }}</a>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="flex justify-center min-[1174px]:justify-start mt-2 min-[1174px]:mt-0 shrink-0">
+                        <div class="border-r border-white/20 pr-8">
+                            <p class="text-slate-400 text-xs">Captain</p>
+                            <p class="text-xl">{{ ship.captain }}</p>
+                        </div>
 
-    <div>
-        <h3>Your starship</h3>
-        <table>
-            <tr>
-                <th>Name</th>
-                <td>
-                    {#
-                        Associative array in twig {Parameters you want to pass to the url}, is done like you see in the following way
-                        after path, {key1: value1, key2: value3}
-                    #}
-                    <a href="{{ path('app_starship_show', {id: myShip.id}) }}">
-                        {{ myShip.name }}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <th>Class</th><td>{{ myShip.class }}</td>
-            </tr>
-            <tr>
-                <th>Captain</th><td>{{ myShip.captain }}</td>
-            </tr>
-            <tr>
-                <th>Status</th><td>{{ myShip.status }}</td>
-            </tr>
+                        <div class="pl-8 w-[100px]">
+                            <p class="text-slate-400 text-xs">Class</p>
+                            <p class="text-xl">{{ ship.class }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
 
-        </table>
-    </div>
+            <p class="text-lg mt-5 text-center md:text-left">
+                Looking for your next galactic ride?
+                <a href="#" class="underline font-semibold">Browse the {{ ships|length * 10 }} starships for sale!</a>
+            </p>
+        </div>
+    </main>
 {% endblock %}
