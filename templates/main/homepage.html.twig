@@ -28,7 +28,16 @@
         <h3>Your starship</h3>
         <table>
             <tr>
-                <th>Name</th><td>{{ myShip.name }}</td>
+                <th>Name</th>
+                <td>
+                    {#
+                        Associative array in twig {Parameters you want to pass to the url}, is done like you see in the following way
+                        after path, {key1: value1, key2: value3}
+                    #}
+                    <a href="{{ path('app_starship_show', {id: myShip.id}) }}">
+                        {{ myShip.name }}
+                    </a>
+                </td>
             </tr>
             <tr>
                 <th>Class</th><td>{{ myShip.class }}</td>
